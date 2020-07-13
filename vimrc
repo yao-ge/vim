@@ -1,3 +1,25 @@
+set nocompatible              " required
+filetype off                  " required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
+
+
+Plugin 'Valloric/YouCompleteMe'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+let g:ycm_confirm_extra_conf = 0
+
+set nu
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
    set fileencodings=ucs-bom,utf-8,latin1
 endif
@@ -713,3 +735,8 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+
+let g:ycm_confirm_extra_conf = 0
+
+set mouse=a
