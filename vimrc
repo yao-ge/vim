@@ -1,3 +1,5 @@
+
+runtime! debian.vim
 set nocompatible              " required
 filetype off                  " required
 " set the runtime path to include Vundle and initialize
@@ -116,7 +118,6 @@ au GUIEnter * simalt ~x
 
 " This line should not be removed as it ensures that various options are
 " properly set to work with the Vim-related packages available in Debian.
-runtime! debian.vim
 
 " Uncomment the next line to make Vim more Vi-compatible
 " NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
@@ -224,7 +225,7 @@ endif
 
 " 设置配色方案
 
-"colorscheme murphy
+colorscheme ron
 
 "字体 
 
@@ -254,7 +255,8 @@ set fileencoding=utf-8
 
 "新建.c,.h,.sh,.java文件，自动插入文件头 
 
-autocmd BufNewFile *.py,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
+" autocmd BufNewFile *.py,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
+autocmd BufNewFile * exec ":call SetTitle()" 
 
 ""定义函数SetTitle，自动插入文件头 
 
@@ -285,7 +287,7 @@ func SetTitle()
         call append(line(".")+4, "\#########################################################################")  
         call append(line(".")+5, "") 
 
-    else 
+	elseif expand("%:e")== 'h'
 
         call setline(1, "/*************************************************************************") 
 
@@ -297,23 +299,53 @@ func SetTitle()
 
         call append(line(".")+3, "")
 
-    endif
 
-    if &filetype == 'cpp'
+	elseif &filetype == 'cpp'
 
-        call append(line(".")+6, "#include<iostream>")
+        call setline(1, "/*************************************************************************") 
 
-        call append(line(".")+7, "using namespace std;")
+        call append(line("."), " > File Name: ".expand("%")) 
 
-        call append(line(".")+8, "")
+        call append(line(".")+1, " > Created Time: ".strftime("%c")) 
 
-    endif
+        call append(line(".")+2, " ************************************************************************/") 
 
-    if &filetype == 'c'
+        call append(line(".")+3, "")
 
-        call append(line(".")+6, "#include<stdio.h>")
+        call append(line(".")+4, "#include<iostream>")
 
-        call append(line(".")+7, "")
+        call append(line(".")+5, "using namespace std;")
+
+        call append(line(".")+6, "")
+
+	elseif &filetype == 'c'
+
+        call setline(1, "/*************************************************************************") 
+
+        call append(line("."), " > File Name: ".expand("%")) 
+
+        call append(line(".")+1, " > Created Time: ".strftime("%c")) 
+
+        call append(line(".")+2, " ************************************************************************/") 
+
+        call append(line(".")+3, "")
+
+        call append(line(".")+4, "#include<stdio.h>")
+
+        call append(line(".")+5, "")
+
+	else 
+
+        call setline(1, "/*************************************************************************") 
+
+        call append(line("."), " > File Name: ".expand("%")) 
+
+        call append(line(".")+1, " > Created Time: ".strftime("%c")) 
+
+        call append(line(".")+2, " ************************************************************************/") 
+
+        call append(line(".")+3, "")
+
 
     endif
 
@@ -718,13 +750,13 @@ set tags=tags
 
 """""""""""""""""""""""""""""""" 
 
-let Tlist_Ctags_Cmd = '/usr/bin/ctags' 
-
-let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的 
-
-let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim 
-
-let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
+"let Tlist_Ctags_Cmd = '/usr/bin/ctags' 
+"
+"let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的 
+"
+"let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim 
+"
+"let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
 
 " minibufexpl插件的一般设置
 
@@ -739,4 +771,3 @@ let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
 let g:ycm_confirm_extra_conf = 0
 
-set mouse=a
