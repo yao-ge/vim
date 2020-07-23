@@ -14,12 +14,17 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 
+Plugin 'ryanoasis/vim-devicons'
+
+Plugin 'preservim/nerdtree'
+
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-let g:ycm_confirm_extra_conf = 0
 
 set nu
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
@@ -31,9 +36,9 @@ set nocompatible	" Use Vim defaults (much better!)
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
 "set ai			" always set autoindenting on
 "set backup		" keep a backup file
-set viminfo='20,\"50	" read/write a .viminfo file, don't store more
+set viminfo='200,\"500	" read/write a .viminfo file, don't store more
 			" than 50 lines of registers
-set history=50		" keep 50 lines of command line history
+set history=500		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 
 " Only do this part when compiled with support for autocommands
@@ -175,11 +180,7 @@ endif
 
 "set lines=40 columns=155    " 设定窗口大小  
 
-"set nu              " 显示行号  
-
-set go=             " 不要图形按钮  
-
-"color asmanian2     " 设置背景主题  
+"set go=1             " 不要图形按钮  
 
 set guifont=Courier_New:h10:cANSI   " 设置字体  
 
@@ -205,7 +206,7 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strf
 
 set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)  
 
-"set foldenable      " 允许折叠  
+set foldenable      " 允许折叠  
 
 "set foldmethod=manual   " 手动折叠  
 
@@ -225,7 +226,7 @@ endif
 
 " 设置配色方案
 
-colorscheme ron
+colorscheme industry
 
 "字体 
 
@@ -312,9 +313,9 @@ func SetTitle()
 
         call append(line(".")+3, "")
 
-        call append(line(".")+4, "#include<iostream>")
+        call append(line(".")+4, "#include <iostream>")
 
-        call append(line(".")+5, "using namespace std;")
+        call append(line(".")+5, "")
 
         call append(line(".")+6, "")
 
@@ -330,7 +331,7 @@ func SetTitle()
 
         call append(line(".")+3, "")
 
-        call append(line(".")+4, "#include<stdio.h>")
+        call append(line(".")+4, "#include <stdio.h>")
 
         call append(line(".")+5, "")
 
@@ -481,7 +482,7 @@ set clipboard+=unnamed
 
 "从不备份  
 
-set nobackup
+"set nobackup
 
 "make 运行
 
@@ -554,9 +555,9 @@ set history=1000
 
 "禁止生成临时文件
 
-set nobackup
+"set nobackup
 
-set noswapfile
+"set noswapfile
 
 "搜索忽略大小写
 
@@ -711,7 +712,7 @@ set completeopt=longest,menu
 
 let Tlist_Sort_Type = "name"    " 按照名称排序  
 
-let Tlist_Use_Right_Window = 1  " 在右侧显示窗口  
+let Tlist_Use_Right_Window=1  " 在右侧显示窗口  
 
 let Tlist_Compart_Format = 1    " 压缩方式  
 
@@ -769,5 +770,44 @@ let g:miniBufExplModSelTarget = 1
 
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
-let g:ycm_confirm_extra_conf = 0
+let g:ycm_confirm_extra_conf = 1
 
+" NERDtree
+autocmd vimenter * NERDTree "自动开启NERDtree
+wincmd w
+autocmd vimenter * wincmd w
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+let g:NERDTreeWinPos='left'
+let g:NERDTreeWinSize=20
+let g:NERDTreeShowLineNumbers=0
+autocmd vimenter * if !argc()|NERDTree|endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+map <F10> :NERDTreeToggle<CR> 
+
+"highlight Functions
+autocmd BufNewFile,BufRead * :syntax match cfunctions "\<[a-zA-Z_][a-zA-Z_0-9]*\>[^()]*)("me=e-2
+autocmd BufNewFile,BufRead * :syntax match cfunctions "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1
+hi cFunctions gui=NONE cterm=bold  ctermfg=blue
+
+hi PreCondit ctermfg=161 cterm=bold
+highlight LineNr ctermfg=darkblue
+
+set cursorline
+hi CursorLine cterm=underline
+hi SpellBad gui=undercurl ctermbg=52
+hi SpellCap    guisp=#7070F0 gui=undercurl
+hi SpellLocal  guisp=#70F0F0 gui=undercurl
+hi SpellRare   guisp=#FFFFFF gui=undercurl
+hi SpellCap                ctermbg=17
+hi SpellLocal              ctermbg=17
+hi SpellRare  ctermfg=none ctermbg=none  cterm=reverse
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+
+""filetype plugin indent on　　　　　　　　        "打开文件类型检测功能
+""let Tlist_Ctags_Cmd = '/usr/bin/ctags'         "设定系统中ctags程序的位置
+""let Tlist_Show_One_File = 0                    "不同时显示多个文件的tag，只显示当前文件的
+""let Tlist_Exit_OnlyWindow = 1                  "如果taglist窗口是最后一个窗口，则退出vim
+""map <silent> <F9> :TlistToggle<cr>             "按F9等同于在命令行模式输入:TlistToggle
