@@ -20,6 +20,14 @@ Plugin 'preservim/nerdtree'
 
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 
+"Plugin 'scrooloose/nerdtree'
+
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+Plugin 'jistr/vim-nerdtree-tabs'
+
+Bundle 'tacahiroy/ctrlp-funky'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -160,7 +168,7 @@ endif
 "set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden		" Hide buffers when they are abandoned
-"set mouse=a		" Enable mouse usage (all modes)
+set mouse=a		" Enable mouse usage (all modes)
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
@@ -372,9 +380,9 @@ nmap <leader>f :find<cr>
 
 " 映射全选+复制 ctrl+a
 
-map <C-A> ggVGY
-
-map! <C-A> <Esc>ggVGY
+""map <C-A> ggVGY
+""
+""map! <C-A> <Esc>ggVGY
 
 map <F12> gg=G
 
@@ -779,7 +787,7 @@ autocmd vimenter * wincmd w
 let g:NERDTreeDirArrowExpandable = '►'
 let g:NERDTreeDirArrowCollapsible = '▼'
 let g:NERDTreeWinPos='left'
-let g:NERDTreeWinSize=20
+let g:NERDTreeWinSize=40
 let g:NERDTreeShowLineNumbers=0
 autocmd vimenter * if !argc()|NERDTree|endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -811,3 +819,17 @@ let Tlist_Exit_OnlyWindow=1
 ""let Tlist_Show_One_File = 0                    "不同时显示多个文件的tag，只显示当前文件的
 ""let Tlist_Exit_OnlyWindow = 1                  "如果taglist窗口是最后一个窗口，则退出vim
 ""map <silent> <F9> :TlistToggle<cr>             "按F9等同于在命令行模式输入:TlistToggle
+
+let vim_markdown_preview_github=1
+
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
