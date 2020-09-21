@@ -166,9 +166,10 @@ endif
 "set ignorecase		" Do case insensitive matching
 "set smartcase		" Do smart case matching
 "set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
+set autowrite		" Automatically save before commands like :next and :make
+set autowriteall
 "set hidden		" Hide buffers when they are abandoned
-set mouse=a		" Enable mouse usage (all modes)
+set mouse=v		" Enable mouse usage (all modes)
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
@@ -196,7 +197,7 @@ set guifont=Courier_New:h10:cANSI   " 设置字体
 
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
 
-autocmd InsertEnter * se cul    " 用浅色高亮当前行  
+"autocmd InsertEnter * se cul    " 用浅色高亮当前行  
 
 "set ruler           " 显示标尺  
 
@@ -547,7 +548,7 @@ set shiftwidth=4
 
 " 不要用空格代替制表符
 
-set noexpandtab
+set expandtab
 
 " 在行和段开始处使用制表符
 
@@ -787,7 +788,7 @@ autocmd vimenter * wincmd w
 let g:NERDTreeDirArrowExpandable = '►'
 let g:NERDTreeDirArrowCollapsible = '▼'
 let g:NERDTreeWinPos='left'
-let g:NERDTreeWinSize=40
+let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=0
 autocmd vimenter * if !argc()|NERDTree|endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
