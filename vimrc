@@ -781,20 +781,20 @@ let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
 let g:ycm_confirm_extra_conf = 1
 
-" NERDtree
-autocmd vimenter * NERDTree "自动开启NERDtree
-wincmd w
-autocmd vimenter * wincmd w
-let g:NERDTreeDirArrowExpandable = '►'
-let g:NERDTreeDirArrowCollapsible = '▼'
-let g:NERDTreeWinPos='left'
-let g:NERDTreeWinSize=25
-let g:NERDTreeShowLineNumbers=0
-autocmd vimenter * if !argc()|NERDTree|endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-map <F10> :NERDTreeToggle<CR> 
-
+""" NERDtree
+""autocmd vimenter * NERDTree "自动开启NERDtree
+""wincmd w
+""autocmd vimenter * wincmd w
+""let g:NERDTreeDirArrowExpandable = '►'
+""let g:NERDTreeDirArrowCollapsible = '▼'
+""let g:NERDTreeWinPos='left'
+""let g:NERDTreeWinSize=25
+""let g:NERDTreeShowLineNumbers=0
+""autocmd vimenter * if !argc()|NERDTree|endif
+""autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+""
+""map <F10> :NERDTreeToggle<CR> 
+""
 "highlight Functions
 autocmd BufNewFile,BufRead * :syntax match cfunctions "\<[a-zA-Z_][a-zA-Z_0-9]*\>[^()]*)("me=e-2
 autocmd BufNewFile,BufRead * :syntax match cfunctions "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1
@@ -821,16 +821,17 @@ let Tlist_Exit_OnlyWindow=1
 ""let Tlist_Exit_OnlyWindow = 1                  "如果taglist窗口是最后一个窗口，则退出vim
 ""map <silent> <F9> :TlistToggle<cr>             "按F9等同于在命令行模式输入:TlistToggle
 
-let vim_markdown_preview_github=1
-
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+""let vim_markdown_preview_github=1
+""
+""let g:NERDTreeIndicatorMapCustom = {
+""    \ "Modified"  : "✹",
+""    \ "Staged"    : "✚",
+""    \ "Untracked" : "✭",
+""    \ "Renamed"   : "➜",
+""    \ "Unmerged"  : "═",
+""    \ "Deleted" ""  : "✖",
+""    \ "Dirty"     : "✗",
+""    \ "Clean"     : "✔︎",
+""    \ "Unknown"   : "?"
+""    \ }
+""
