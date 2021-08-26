@@ -1,6 +1,5 @@
 
 runtime! debian.vim
-set nocompatible              " required
 filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -20,14 +19,9 @@ Plugin 'preservim/nerdtree'
 
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-"Plugin 'scrooloose/nerdtree'
+Plugin 'haya14busa/incsearch.vim'
 
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-Plugin 'jistr/vim-nerdtree-tabs'
-
-Bundle 'tacahiroy/ctrlp-funky'
-
+Plugin 'zivyangll/git-blame.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -35,19 +29,16 @@ filetype plugin indent on    " required
 
 
 set nu
+set mouse=a
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
    set fileencodings=ucs-bom,utf-8,latin1
 endif
 
-set nu
-set nocompatible	" Use Vim defaults (much better!)
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
-"set ai			" always set autoindenting on
-"set backup		" keep a backup file
+""set backup		" keep a backup file
 set viminfo='200,\"500	" read/write a .viminfo file, don't store more
 			" than 50 lines of registers
 set history=500		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
@@ -110,32 +101,8 @@ nmap <C-\>f :cs find f <C-R>=expand("<cword>")<CR><CR>
 nmap <C-\>i :cs find i <C-R>=expand("<cword>")<CR><CR>
 nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
-
-
-
-
-
-
 "默认最大化窗口打开
 au GUIEnter * simalt ~x
-
-
-
-
-" All system-wide defaults are set in $VIMRUNTIME/debian.vim and sourced by
-" the call to :runtime you can find below.  If you wish to change any of those
-" settings, you should do it in this file (/etc/vim/vimrc), since debian.vim
-" will be overwritten everytime an upgrade of the vim packages is performed.
-" It is recommended to make changes after sourcing debian.vim since it alters
-" the value of the 'compatible' option.
-
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages available in Debian.
-
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
 
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
@@ -143,33 +110,6 @@ if has("syntax")
   syntax on
 endif
 
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-"set background=dark
-
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-"endif
-
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-"if has("autocmd")
-"  filetype plugin indent on
-"endif
-
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-"set showcmd		" Show (partial) command in status line.
-"set showmatch		" Show matching brackets.
-"set ignorecase		" Do case insensitive matching
-"set smartcase		" Do smart case matching
-"set incsearch		" Incremental search
-set autowrite		" Automatically save before commands like :next and :make
-set autowriteall
-"set hidden		" Hide buffers when they are abandoned
-set mouse=v		" Enable mouse usage (all modes)
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
@@ -197,9 +137,7 @@ set guifont=Courier_New:h10:cANSI   " 设置字体
 
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
 
-"autocmd InsertEnter * se cul    " 用浅色高亮当前行  
-
-"set ruler           " 显示标尺  
+autocmd InsertEnter * se cul    " 用浅色高亮当前行  
 
 set showcmd         " 输入的命令显示出来，看的清楚些  
 
@@ -213,7 +151,7 @@ set novisualbell    " 不要闪烁(不明白)
 
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
 
-set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)  
+set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)  
 
 set foldenable      " 允许折叠  
 
@@ -235,7 +173,10 @@ endif
 
 " 设置配色方案
 
+syntax enable
+set background=dark
 colorscheme industry
+""colorscheme solarized
 
 "字体 
 
@@ -371,19 +312,12 @@ endfunc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-
 nmap <leader>w :w!<cr>
+nmap <leader>q :q!<cr>
 
 nmap <leader>f :find<cr>
 
-
-
-" 映射全选+复制 ctrl+a
-
-""map <C-A> ggVGY
-""
-""map! <C-A> <Esc>ggVGY
+map! <C-A> <Esc>ggVGY
 
 map <F12> gg=G
 
@@ -398,6 +332,8 @@ nnoremap <F2> :g/^\s*$/d<CR>
 "比较文件  
 
 nnoremap <C-F2> :vert diffsplit 
+
+nnoremap <Leader>\ :<C-u>call gitblame#echo()<CR>
 
 "新建标签  
 
@@ -489,10 +425,6 @@ filetype plugin on
 
 set clipboard+=unnamed 
 
-"从不备份  
-
-"set nobackup
-
 "make 运行
 
 :set makeprg=g++\ -Wall\ \ %
@@ -509,14 +441,6 @@ set guioptions-=T           " 隐藏工具栏
 
 set guioptions-=m           " 隐藏菜单栏
 
-"set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\
-
-" 设置在状态行显示的信息
-
-
-" 不要使用vi的键盘模式，而是vim自己的
-
-set nocompatible
 
 " 语法高亮
 
@@ -533,6 +457,8 @@ set confirm
 " 自动缩进
 
 set autoindent
+
+set relativenumber
 
 set cindent
 
@@ -562,12 +488,6 @@ set number
 
 set history=1000
 
-"禁止生成临时文件
-
-"set nobackup
-
-"set noswapfile
-
 "搜索忽略大小写
 
 set ignorecase
@@ -594,11 +514,6 @@ set langmenu=zh_CN.UTF-8
 
 set helplang=cn
 
-" 我的状态行显示的内容（包括文件类型和解码）
-
-"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
-
-"set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
 
 " 总是显示状态行
 
@@ -643,9 +558,6 @@ set backspace=2
 " 允许backspace和光标键跨越行边界
 
 set whichwrap+=<,>,h,l
-
-" 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
-
 
 " 通过使用: commands命令，告诉我们文件的哪一行被改变过
 
@@ -739,6 +651,9 @@ let Tlist_File_Fold_Auto_Close = 0  " 不要关闭其他文件的tags
 "设置tags  
 
 set tags=tags  
+set tags+=./tags;$HOME
+
+set noeol
 
 "set autochdir 
 
@@ -752,7 +667,7 @@ set tags=tags
 
 "默认打开Taglist 
 
-"let Tlist_Auto_Open=1 
+""let Tlist_Auto_Open=1 
 
 """""""""""""""""""""""""""""" 
 
@@ -760,13 +675,15 @@ set tags=tags
 
 """""""""""""""""""""""""""""""" 
 
-"let Tlist_Ctags_Cmd = '/usr/bin/ctags' 
-"
-"let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的 
-"
-"let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim 
-"
-"let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
+let Tlist_Ctags_Cmd = '/usr/bin/ctags' 
+
+let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的 
+
+let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim 
+
+let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
+
+map <silent> <F9> :TlistToggle<cr>             "按F9等同于在命令行模式输入:TlistToggle
 
 " minibufexpl插件的一般设置
 
@@ -781,20 +698,43 @@ let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
 let g:ycm_confirm_extra_conf = 1
 
-""" NERDtree
-""autocmd vimenter * NERDTree "自动开启NERDtree
-""wincmd w
-""autocmd vimenter * wincmd w
-""let g:NERDTreeDirArrowExpandable = '►'
-""let g:NERDTreeDirArrowCollapsible = '▼'
-""let g:NERDTreeWinPos='left'
-""let g:NERDTreeWinSize=25
-""let g:NERDTreeShowLineNumbers=0
-""autocmd vimenter * if !argc()|NERDTree|endif
-""autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-""
-""map <F10> :NERDTreeToggle<CR> 
-""
+" NERDtree
+"autocmd vimenter * NERDTree "自动开启NERDtree
+autocmd vimenter * NERDTreeFind 
+wincmd w
+autocmd vimenter * wincmd w
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+let g:NERDTreeWinPos='left'
+let g:NERDTreeWinSize=40
+let g:NERDTreeShowLineNumbers=1
+autocmd vimenter * if !argc()|NERDTree|endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+map <F10> :NERDTreeToggle<CR> 
+
+" Check if NERDTree is open or active
+function! IsNERDTreeOpen()
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+" Call NERDTreeFind if NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+" Highlight currently open buffer in NERDTree
+autocmd BufEnter * call SyncTree()
+ 
+function! ToggleNerdTree()
+  set eventignore=BufEnter
+  NERDTreeToggle
+  set eventignore=
+endfunction
+nmap <C-n> :call ToggleNerdTree()<CR>
+
 "highlight Functions
 autocmd BufNewFile,BufRead * :syntax match cfunctions "\<[a-zA-Z_][a-zA-Z_0-9]*\>[^()]*)("me=e-2
 autocmd BufNewFile,BufRead * :syntax match cfunctions "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1
@@ -812,26 +752,17 @@ hi SpellRare   guisp=#FFFFFF gui=undercurl
 hi SpellCap                ctermbg=17
 hi SpellLocal              ctermbg=17
 hi SpellRare  ctermfg=none ctermbg=none  cterm=reverse
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
 
-""filetype plugin indent on　　　　　　　　        "打开文件类型检测功能
-""let Tlist_Ctags_Cmd = '/usr/bin/ctags'         "设定系统中ctags程序的位置
-""let Tlist_Show_One_File = 0                    "不同时显示多个文件的tag，只显示当前文件的
-""let Tlist_Exit_OnlyWindow = 1                  "如果taglist窗口是最后一个窗口，则退出vim
-""map <silent> <F9> :TlistToggle<cr>             "按F9等同于在命令行模式输入:TlistToggle
+let vim_markdown_preview_github=1
 
-""let vim_markdown_preview_github=1
-""
-""let g:NERDTreeIndicatorMapCustom = {
-""    \ "Modified"  : "✹",
-""    \ "Staged"    : "✚",
-""    \ "Untracked" : "✭",
-""    \ "Renamed"   : "➜",
-""    \ "Unmerged"  : "═",
-""    \ "Deleted" ""  : "✖",
-""    \ "Dirty"     : "✗",
-""    \ "Clean"     : "✔︎",
-""    \ "Unknown"   : "?"
-""    \ }
-""
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
