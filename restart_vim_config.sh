@@ -12,6 +12,8 @@ git clone --recursive https://github.com/altercation/vim-colors-solarized.git ~/
 apt-get update -y 
 apt-get upgrade -y
 apt install build-essential cmake vim-nox python3-dev clang libclang-dev clang-tidy -y
+apt install mono-complete nodejs default-jdk npm gnutls-bin -y
+#apt-get install golang -y
 apt install mono-complete golang nodejs default-jdk npm gnutls-bin -y
 git config --global http.sslVerify false
 git config --global http.postBuffer 1048576000
