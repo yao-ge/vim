@@ -13,7 +13,7 @@ git clone --depth=1 https://github.com/vim-airline/vim-airline.git ~/.vim/bundle
 git clone --recursive https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
 apt-get update -y 
 apt-get upgrade -y
-apt-get install build-essential cmake vim-nox python3-dev clang libclang-dev clang-tidy -y
+apt-get install build-essential cmake vim-nox python3-dev clang libclang-dev clang-tidy clang-format -y
 apt-get install mono-complete nodejs default-jdk npm gnutls-bin -y
 apt-get install golang -y
 apt install mono-complete golang nodejs default-jdk npm gnutls-bin -y

@@ -18,6 +18,7 @@ Plugin 'valloric/youcompleteme'
 Plugin 'zivyangll/git-blame.vim'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'rhysd/vim-clang-format'
 
 " Plugin end
 call vundle#end()
@@ -136,6 +137,22 @@ let g:ycm_semantic_triggers =  {
 "" git blame
 nnoremap <Leader>\ :<C-u>call gitblame#echo()<CR>
 
+"" clang format
+""autocmd FileType c ClangFormatAutoEnable
+""autocmd FileType h ClangFormatAutoEnable
+""autocmd FileType cu ClangFormatAutoEnable
+""autocmd FileType cpp ClangFormatAutoEnable
+""autocmd FileType hpp ClangFormatAutoEnable
+let g:clang_format#command = 'clang-format'
+nmap <F4> :ClangFormat<cr>
+let g:clang_format#detect_style_file = 1
+
+let g:clang_format#style_options = {
+        \ "BasedOnStyle" : "Google",
+        \ "ColumnLimit" : 0,
+        \ "IndentWidth" : 4,
+        \ "TabWidth" : 4}
+
 " common set up
 set number	                " Show line numbers
 set showmatch	                " Highlight matching brace
@@ -177,6 +194,8 @@ set clipboard+=unnamed          " 共享剪贴板
 set magic                       " 设置魔术
 set confirm                     " 在处理未保存或只读文件的时候，弹出确认
 set completeopt=longest,menu    " 打开文件类型检测, 加了这句才可以用智能补全
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
 
 if has("cscope") && filereadable("/usr/bin/cscope")
    set csprg=/usr/bin/cscope
