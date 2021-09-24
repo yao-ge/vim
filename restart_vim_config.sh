@@ -1,5 +1,13 @@
 #!/bin/bash
 
+apt-get update -y 
+apt-get upgrade -y
+apt-get install build-essential cmake vim-nox python3-dev clang libclang-dev clang-tidy clang-format -y
+apt-get install mono-complete nodejs default-jdk npm gnutls-bin -y
+#apt-get install golang -y
+apt-get remove
+apt-get autoremove
+
 mkdir -p ~/.vim/bundle
 mkdir -p ~/.vim/autoload
 # get bundle
@@ -11,12 +19,6 @@ git clone --recursive https://github.com/ryanoasis/vim-devicons.git ~/.vim/bundl
 git clone --depth=1 https://github.com/vim-syntastic/syntastic.git ~/.vim/bundle/syntastic
 git clone --depth=1 https://github.com/vim-airline/vim-airline.git ~/.vim/bundle/vim-airline
 git clone --recursive https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
-apt-get update -y 
-apt-get upgrade -y
-apt-get install build-essential cmake vim-nox python3-dev clang libclang-dev clang-tidy clang-format -y
-apt-get install mono-complete nodejs default-jdk npm gnutls-bin -y
-apt-get install golang -y
-apt install mono-complete golang nodejs default-jdk npm gnutls-bin -y
 git config --global http.sslVerify false
 git config --global http.postBuffer 1048576000
 git clone --recursive https://github.com/ycm-core/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
