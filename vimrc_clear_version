@@ -49,10 +49,35 @@ let g:NERDTreeGitStatusIndicatorMapCustom={
                 \ 'Unknown'   :'?',
                 \ }
 
+" Check if NERDTree is open or active
+function! IsNERDTreeOpen()
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+" Call NERDTreeFind if NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+" Highlight currently open buffer in NERDTree
+autocmd BufEnter * call SyncTree()
+ 
+function! ToggleNerdTree()
+  set eventignore=BufEnter
+  NERDTreeToggle
+  set eventignore=
+endfunction
+""nmap <C-n> :call ToggleNerdTree()<CR>
+nmap <F10> :call ToggleNerdTree()<CR>
+
+
 "" syntastic check
 execute pathogen#infect()
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{FugitiveStatusline()}
 set statusline+=%*
 
 "" vim airline
@@ -80,11 +105,18 @@ let g:ycm_auto_trigger=1
 nnoremap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
 nnoremap <leader>yfd <Plug>(YCMFindSymbolInDocument)
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>jl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>jf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>jg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_key_invoke_completion='<c-space>'
 ""set completeopt=menu,menuone
+""set completeopt-=preview
+set completeopt=menu,preview
 let g:ycm_add_preview_to_completeopt=1
 let g:ycm_autoclose_preview_window_after_insertion=1
 let g:ycm_autoclose_preview_window_after_completion=1
+""autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+""autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let g:ycm_filetype_whitelist={
 			\ "c":1,
 			\ "cc":1,
@@ -260,6 +292,7 @@ hi cFunctions gui=NONE cterm=bold  ctermfg=blue
 
 hi PreCondit ctermfg=161 cterm=bold
 highlight LineNr ctermfg=darkblue
+hi MatchParen ctermbg=Yellow guibg=lightblue
 
 set cursorline
 hi CursorLine cterm=underline
@@ -291,3 +324,7 @@ if has("autocmd")
   augroup END
 endif
 
+"" vimdiff
+if &diff
+    colorscheme evening
+endif
