@@ -19,6 +19,7 @@ Plugin 'zivyangll/git-blame.vim'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'instant-markdown/vim-instant-markdown'
 
 " Plugin end
 call vundle#end()
@@ -152,6 +153,20 @@ let g:clang_format#style_options = {
         \ "ColumnLimit" : 0,
         \ "IndentWidth" : 4,
         \ "TabWidth" : 4}
+
+"" instant markdown
+"Uncomment to override defaults:
+"let g:instant_markdown_slow = 1
+"let g:instant_markdown_autostart = 0
+"let g:instant_markdown_open_to_the_world = 1
+"let g:instant_markdown_allow_unsafe_content = 1
+"let g:instant_markdown_allow_external_content = 0
+"let g:instant_markdown_mathjax = 1
+"let g:instant_markdown_mermaid = 1
+"let g:instant_markdown_logfile = '/tmp/instant_markdown.log'
+"let g:instant_markdown_autoscroll = 0
+"let g:instant_markdown_port = 8888
+"let g:instant_markdown_python = 1
 
 " common set up
 set number	                " Show line numbers

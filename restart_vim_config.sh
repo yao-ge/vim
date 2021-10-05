@@ -3,10 +3,12 @@
 apt-get update -y 
 apt-get upgrade -y
 apt-get install build-essential cmake vim-nox python3-dev clang libclang-dev clang-tidy clang-format -y
-apt-get install mono-complete nodejs default-jdk npm gnutls-bin -y
+apt-get install mono-complete nodejs default-jdk npm gnutls-bin xdg-utils curl -y
 #apt-get install golang -y
 apt-get remove
 apt-get autoremove
+
+npm -g install instant-markdown-d
 
 mkdir -p ~/.vim/bundle
 mkdir -p ~/.vim/autoload
