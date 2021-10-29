@@ -120,21 +120,20 @@ let g:ycm_autoclose_preview_window_after_completion=0
 ""autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 ""autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let g:ycm_filetype_whitelist={
-			\ "c":1,
-			\ "cc":1,
-			\ "cpp":1,
-			\ "h":1,
-			\ "hpp":1,
-			\ "objc":1,
-			\ "sh":1,
-			\ "zsh":1,
-			\ "zimbu":1,
-			\ }
+            \ "c":1,
+            \ "cc":1,
+            \ "cpp":1,
+            \ "h":1,
+            \ "hpp":1,
+            \ "objc":1,
+            \ "sh":1,
+            \ "zsh":1,
+            \ "zimbu":1,
+            \ }
 let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-			\ 'cs,lua,javascript': ['re!\w{2}'],
-			\ }
-
+            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+            \ 'cs,lua,javascript': ['re!\w{2}'],
+            \ }
 "" git blame
 nnoremap <Leader>\ :<C-u>call gitblame#echo()<CR>
 
