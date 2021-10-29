@@ -210,6 +210,7 @@ set confirm                     " 在处理未保存或只读文件的时候，�
 set completeopt=longest,menu    " 打开文件类型检测, 加了这句才可以用智能补全
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
+set t_RV=
 
 if has("cscope") && filereadable("/usr/bin/cscope")
    set csprg=/usr/bin/cscope
