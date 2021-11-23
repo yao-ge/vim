@@ -30,3 +30,4 @@ echo "export GO111MODULE=on" >> ~/.profile
 echo "export GOPROXY=https://goproxy.cn" >> ~/.profile
 echo "export GOPROXY=https://goproxy.cn" >> ~/.profile
 #cd ~/.vim/bundle/YouCompleteMe/ && python3 ./install.py --all
+#git clone --recursive https://github.com/cyrus-and/gdb-dashboard.git
