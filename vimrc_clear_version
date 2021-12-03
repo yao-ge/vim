@@ -204,6 +204,8 @@ set encoding=utf-8
 set modifiable
 set fileencodings=ucs-bom,utf-8,cp936,latin1
 set fileencoding=utf-8
+set binary
+set noeol
 set clipboard+=unnamed          " 共享剪贴板  
 set magic                       " 设置魔术
 set confirm                     " 在处理未保存或只读文件的时候，弹出确认
