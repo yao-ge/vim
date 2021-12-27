@@ -92,6 +92,7 @@ let g:syntastic_check_on_wq=0
 "" vim-colors-solarized
 syntax enable                   " Enable syntax highlighting
 colorscheme solarized           " Change color scheme
+""colorscheme industry          " Change color scheme
 let g:solarized_termcolors=256
 call togglebg#map("<F5>")
 set background=dark             " Use colors that suit a dark background
@@ -265,7 +266,7 @@ func SetTitle()
         call append(line(".")+3, "\#!/bin/bash") 
         call append(line(".")+4, "") 
     elseif &filetype == 'python'  
-        call setline(1,          "\#########################################################################")   
+        call setline(1,"\#########################################################################")   
         call append(line("."), "\#-*- coding:utf-8 -*-")
         call append(line(".")+1, "\#!/usr/bin/env python")  
         call append(line(".")+2,   "\# File Name: ".expand("%"))   
@@ -294,6 +295,12 @@ func SetTitle()
         call append(line(".")+3, "")
         call append(line(".")+4, "#include <stdio.h>")
         call append(line(".")+5, "")
+    elseif expand("%:e")== 'md'
+        call setline(1, "```")
+        call append(line("."), "File Name: ".expand("%")) 
+        call append(line(".")+1, "Created Time: ".strftime("%c")) 
+        call append(line(".")+2, "```")
+        call append(line(".")+3, "")
     else 
         call setline(1, "/*************************************************************************") 
         call append(line("."), " > File Name: ".expand("%")) 
@@ -369,3 +376,79 @@ endif
 if &diff
     colorscheme evening
 endif
+
+
+""""""""""""""""""""""""""""""
+"Chinese Punctuation
+""""""""""""""""""""""""""""""
+function! CheckChineseMark()
+    "依次检查
+    if search('。')
+        execute "%s/。/\."
+    endif
+
+    if search('，')
+        execute "%s/，/,"
+    endif
+
+    if search('；')
+        execute "%s/；/;"
+    endif
+
+    if  search('？')
+        execute "%s/？/?"
+    endif
+
+    if search('：')
+        execute "%s/：/\:"
+    endif
+
+    if search('‘')
+        execute "%s/‘/\'"
+    endif
+
+    if search('’')
+        execute "%s/’/\'"
+    endif
+
+    if search('”')
+        execute "%s/”/\""
+    endif
+
+    if search('“')
+        execute "%s/“/\""
+    endif
+
+    if search('《')
+        execute "%s/《/\<"
+    endif
+
+    if search('》')
+        execute "%s/》/\>"
+    endif
+
+    if search('——')
+        execute "%s/——/-"
+    endif
+
+    if search('）')
+        execute "%s/）/\)"
+    endif
+
+    if search('（')
+        execute "%s/（/\("
+    endif
+
+    if search('！')
+        execute "%s/！/!"
+    endif
+
+    if search('【')
+        execute "%s/【/\["
+    endif
+
+    if search('】')
+        execute "%s/】/\]"
+    endif
+endfunction
+nnoremap <C-L> <ESC>:call CheckChineseMark()<ESC>
