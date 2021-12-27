@@ -91,13 +91,15 @@ let g:syntastic_check_on_wq=0
 
 "" vim-colors-solarized
 syntax enable                   " Enable syntax highlighting
-colorscheme industry            " Change color scheme
-""colorscheme solarized           " Change color scheme
+colorscheme solarized           " Change color scheme
 let g:solarized_termcolors=256
 call togglebg#map("<F5>")
 set background=dark             " Use colors that suit a dark background
 
 "" tagbar
+let g:tagbar_ctags_bin='/usr/bin/ctags'
+let g:tagbar_sort=0
+let g:tagbar_width=40
 nnoremap <F9> :TagbarToggle<CR>
 
 "" youcompleteme
@@ -149,10 +151,10 @@ nmap <F4> :ClangFormat<cr>
 let g:clang_format#detect_style_file = 1
 
 let g:clang_format#style_options = {
-        \ "BasedOnStyle" : "Google",
-        \ "ColumnLimit" : 0,
-        \ "IndentWidth" : 4,
-        \ "TabWidth" : 4}
+            \ "BasedOnStyle" : "Google",
+            \ "ColumnLimit" : 110,
+            \ "IndentWidth" : 4
+            \}
 
 "" instant markdown
 "Uncomment to override defaults:
@@ -169,24 +171,25 @@ let g:clang_format#style_options = {
 "let g:instant_markdown_python = 1
 
 " common set up
-set number	                " Show line numbers
-set showmatch	                " Highlight matching brace
-set visualbell	                " Use visual bell (no beeping)
-set hlsearch	                " Highlight all search results
-set smartcase	                " Enable smart-case search
-set gdefault	                " Always substitute all matches in a line
-set ignorecase	                " Always case-insensitive
-set incsearch	                " Searches for strings incrementally
-set autoindent	                " Auto-indent new lines
-set cindent	                " Use 'C' style program indenting
-set expandtab	                " Use spaces instead of tabs
-set shiftwidth=4	        " Number of auto-indent spaces
-set smartindent	                " Enable smart-indent
-set smarttab	                " Enable smart-tabs
-set softtabstop=4	        " Number of spaces per Tab
-set ruler	                " Show row and column ruler information
-set undolevels=1000	        " Number of undo levels
-set backspace=indent,eol,start	" Backspace behaviour
+set number                      " Show line numbers
+set showmatch                   " Highlight matching brace
+set visualbell                  " Use visual bell (no beeping)
+set hlsearch                    " Highlight all search results
+set smartcase                   " Enable smart-case search
+set gdefault                    " Always substitute all matches in a line
+set ignorecase                  " Always case-insensitive
+set incsearch                   " Searches for strings incrementally
+set autoindent                  " Auto-indent new lines
+set cindent                     "Use 'C' style program indenting
+set expandtab                   " Use spaces instead of tabs
+set shiftwidth=4                " Number of auto-indent spaces
+set smartindent                 " Enable smart-indent
+set smarttab                    " Enable smart-tabs
+set softtabstop=4               " Number of spaces per Tab
+set tabstop=4
+set ruler                       " Show row and column ruler information
+set undolevels=1000             " Number of undo levels
+set backspace=indent,eol,start  " Backspace behaviour
 set lazyredraw                  " Don’t update screen during macro and script execution
 set scrolloff=1                 " The number of screen lines to keep above and below the cursor
 set display+=lastline           " Always try to show a paragraph’s last line
@@ -200,8 +203,8 @@ set showcmd                     " 输入的命令显示出来，看的清楚些
 set laststatus=2                " 启动显示状态行(1),总是显示状态行(2)  
 set nocompatible                " 去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
-set encoding=utf-8
 set termencoding=utf-8
+set encoding=utf-8
 set modifiable
 set fileencodings=ucs-bom,utf-8,cp936,latin1
 set fileencoding=utf-8
@@ -212,8 +215,8 @@ set magic                       " 设置魔术
 set confirm                     " 在处理未保存或只读文件的时候，弹出确认
 set completeopt=longest,menu    " 打开文件类型检测, 加了这句才可以用智能补全
 set noerrorbells visualbell t_vb=
-set t_RV=
 autocmd GUIEnter * set visualbell t_vb=
+set t_RV=
 
 if has("cscope") && filereadable("/usr/bin/cscope")
    set csprg=/usr/bin/cscope
@@ -330,6 +333,7 @@ hi cFunctions gui=NONE cterm=bold  ctermfg=blue
 hi PreCondit ctermfg=161 cterm=bold
 highlight LineNr ctermfg=darkblue
 hi MatchParen ctermbg=Yellow guibg=lightblue
+hi ModeMsg ctermfg=Green
 
 set cursorline
 hi CursorLine cterm=underline
