@@ -120,12 +120,28 @@ nnoremap <leader>jg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_key_invoke_completion='<c-space>'
 ""set completeopt=menu,menuone
 set completeopt=menu
+set completeopt+=longest
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_autoclose_preview_window_after_insertion=0
 let g:ycm_autoclose_preview_window_after_completion=0
-""autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-""autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" 回车即选中当前项
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+" 上下左右键的行为 会显示其他信息
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" SirVer/ultisnips 代码片断
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsListSnippets="<c-e>"
+"定义存放代码片段的文件夹，使用自定义和默认的，将会的到全局，有冲突的会提示
+let g:UltiSnipsSnippetDirectories=["bundle/vim-snippets/UltiSnips"]
 let g:ycm_filetype_whitelist={
             \ "c":1,
             \ "cc":1,
@@ -141,6 +157,7 @@ let g:ycm_semantic_triggers =  {
             \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
             \ 'cs,lua,javascript': ['re!\w{2}'],
             \ }
+
 "" git blame
 nnoremap <Leader>\ :<C-u>call gitblame#echo()<CR>
 
