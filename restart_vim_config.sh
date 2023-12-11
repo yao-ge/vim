@@ -27,35 +27,35 @@ git config --global http.sslVerify false
 git config --global http.postBuffer 1048576000
 if [ ! -d ~/.vim/bundle/Vundle.vim ]
 then
-	git clone https://github.com.cnpmjs.org/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 if [ ! -d ~/.vim/bundle/nerdtree ]
 then
-	git clone https://github.com.cnpmjs.org/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+	git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
 fi
 if [ ! -d ~/.vim/bundle/nerdtree-git-plugin ]
 then
-	git clone --recursive https://github.com.cnpmjs.org/Xuyuanp/nerdtree-git-plugin.git ~/.vim/bundle/nerdtree-git-plugin
+	git clone --recursive https://github.com/Xuyuanp/nerdtree-git-plugin.git ~/.vim/bundle/nerdtree-git-plugin
 fi
 if [ ! -d ~/.vim/bundle/vim-devicons ]
 then
-	git clone --recursive https://github.com.cnpmjs.org/ryanoasis/vim-devicons.git ~/.vim/bundle/vim-devicons
+	git clone --recursive https://github.com/ryanoasis/vim-devicons.git ~/.vim/bundle/vim-devicons
 fi
 if [ ! -d ~/.vim/bundle/syntastic ]
 then
-	git clone --depth=1 https://github.com.cnpmjs.org/vim-syntastic/syntastic.git ~/.vim/bundle/syntastic
+	git clone --depth=1 https://github.com/vim-syntastic/syntastic.git ~/.vim/bundle/syntastic
 fi
 if [ ! -d ~/.vim/bundle/vim-airline ]
 then
-	git clone --depth=1 https://github.com.cnpmjs.org/vim-airline/vim-airline.git ~/.vim/bundle/vim-airline
+	git clone --depth=1 https://github.com/vim-airline/vim-airline.git ~/.vim/bundle/vim-airline
 fi
 if [ ! -d ~/.vim/bundle/vim-colors-solarized ]
 then
-	git clone --recursive https://github.com.cnpmjs.org/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
+	git clone --recursive https://github.com/altercation/vim-colors-solarized.git ~/.vim/bundle/vim-colors-solarized
 fi
 if [ ! -d ~/.vim/bundle/YouCompleteMe ]
 then
-	git clone --recursive https://github.com.cnpmjs.org/ycm-core/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
+	git clone --recursive https://github.com/ycm-core/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
 	go env -w GO111MODULE=on
 	go env -w GOPROXY=https://goproxy.cn,direct
 	echo "export GO111MODULE=on" >> ~/.profile
