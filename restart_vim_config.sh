@@ -18,8 +18,12 @@ fi
 if [ ! -d ~/.vim/autoload ]
 then
 	mkdir -p ~/.vim/autoload
+    cp ./pathogen.vim ~/.vim/autoload/
 	#wget https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim ~/.root/autoload/
 fi
+
+cp ./vimrc_latest ~/.vimrc
+
 # get bundle
 apt-get install gnutls-bin
 export GIT_SSL_NO_VERIFY=1
@@ -61,5 +65,5 @@ then
 	echo "export GO111MODULE=on" >> ~/.profile
 	echo "export GOPROXY=https://goproxy.cn" >> ~/.profile
 	echo "export GOPROXY=https://goproxy.cn" >> ~/.profile
-	cd ~/.vim/bundle/YouCompleteMe/ && python3 ./install.py --clangd-completer
+	cd ~/.vim/bundle/YouCompleteMe/ && python3 ./install.py --clangd-completer --force-sudo
 fi
